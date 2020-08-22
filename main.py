@@ -4,7 +4,7 @@ from starlette.responses import Response
 import json
 import subprocess
 
-app = FastAPI()
+app = FastAPI() 
 
 
 def print_alarm_noise(alarm_file_name):
@@ -20,6 +20,8 @@ def write_to_file(alarm):
         text_file.write("Alarm Summary: {}\n".format(alarm['commonAnnotations']['summary']))
         text_file.write("\n")
         text_file.write("Severity is:  {}\n".format(alarm['commonLabels']['severity']))
+        text_file.write("\n")
+        text_file.write("Host:  {}\n".format(alarm['commonLabels']['instance']))
     print_alarm_noise(alarm_file_name)
 
 
@@ -38,8 +40,6 @@ async def root():
 async def incoming_alerts(request: Request):
     body = await request.body()
     alarm_json = json.loads(body)
-    print(alarm_json)
-    print(alarm_json['status'])
     if validate_prom_alarm(alarm_json):
         write_to_file(alarm_json)
         return {"message": "Alert received!"}

@@ -3,3 +3,5 @@ Alarm Status: firing
 Alarm Summary: POTATO - High latency is high!
 
 Severity is:  warning-high
+
+Host:  oh-no-its-on-fire-16246.coldnorthadmin.com
